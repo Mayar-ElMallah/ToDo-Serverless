@@ -29,7 +29,7 @@ provider:
     TODOS_BY_USER_INDEX: TodosByUserIndex
     ATTACHMENTS_S3_BUCKET: serverless-todos-attachments-20210806-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
-    AUTH0_DOMAIN_ID: code-example.eu
+    AUTH_0_JWKS_URL: https://dev-cr9isr4f.eu.auth0.com/.well-known/jwks.json
 
   logs:
     restApi: true
