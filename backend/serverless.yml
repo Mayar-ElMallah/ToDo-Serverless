@@ -7,6 +7,7 @@ plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
   - serverless-plugin-tracing
+  - serverless-aws-documentation
 
 frameworkVersion: '2'
 
@@ -27,6 +28,7 @@ provider:
   environment:
     TODOS_TABLE: Todos-${self:provider.stage}
     TODOS_BY_USER_INDEX: TodosByUserIndex
+    PROJECT_NAME: serverless-ToDo-App
     ATTACHMENTS_S3_BUCKET: serverless-todos-attachments-20210806-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
     AUTH_0_JWKS_URL: https://dev-cr9isr4f.eu.auth0.com/.well-known/jwks.json
@@ -83,9 +85,12 @@ functions:
           path: todos
           cors: true
           authorizer: Auth
-          request:
-            schema:
-              application/json: ${file(schemas/create-todo-model.json)}
+          documentation:
+            summary: 'Create a new item'
+            description: 'Create a new item'
+            requestModels:
+              'application/json': CreateTodoRequest
+          reqValidatorName: onlyBody
     iamRoleStatements:
       - Effect: Allow
         Action:
